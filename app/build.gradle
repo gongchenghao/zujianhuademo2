@@ -1,0 +1,54 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    defaultConfig {
+        applicationId "com.mvp.gch.zujianhuademo"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        //这个javaCompileOptions的代码所有moudle都要添加，为的是做区分
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+
+            annotationProcessorOptions { includeCompileClasspath = true } //处理butterknife的依赖问题
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    if (isRunBuyCar.toBoolean() == false) //如果购物车模块不独立运行,就把它依赖到主项目中
+    {
+        implementation project(':buycar')
+    }
+    if (isRunFirstPage.toBoolean() == false) //如果首页模块不独立运行,就把它依赖到主项目中
+    {
+        implementation project(':firstpage')
+    }
+    if (isRunMy.toBoolean() == false) //如果"我的"模块不独立运行,就把它依赖到主项目中
+    {
+        implementation project(':my')
+    }
+
+    implementation project(':base')//基础模块不会独立运行,因此直接把它依赖到主项目中
+
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    annotationProcessor 'com.alibaba:arouter-compiler:1.1.4'
+}

@@ -1,0 +1,55 @@
+apply plugin: 'com.android.library'
+//apply plugin: 'r2generator-plugin'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions { includeCompileClasspath = true } //处理butterknife的依赖问题
+        }
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    api 'com.alibaba:arouter-api:1.3.0' //注意:这里要用api,使用implementation只能在本moudle中引用,如果想在其他moudle中使用,则用api进行声明
+
+    // 引入butterknife 且去除依赖兼容包
+    api('com.jakewharton:butterknife:9.0.0-rc1') {
+        exclude group: 'com.android.support'
+    }
+    api 'com.jakewharton:butterknife-compiler:9.0.0-rc1'
+
+    api 'com.hendraanggrian:r-parser:0.2'
+    //gson
+    api 'com.google.code.gson:gson:2.8.2'
+
+    api 'com.squareup.retrofit2:retrofit:2.3.0'
+    api 'com.squareup.retrofit2:converter-gson:2.3.0'
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    api 'com.squareup.okhttp3:okhttp:3.2.0'
+    api 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    api 'io.reactivex.rxjava2:rxjava:2.1.11'
+}

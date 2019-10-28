@@ -1,0 +1,42 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    
+    repositories {
+        google()
+        jcenter()
+        maven { url 'https://jitpack.io' } //解决R2问题
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.jakewharton:butterknife-gradle-plugin:9.0.0-rc2'
+//        classpath 'com.github.nichbar:r2generator:1.0.5' //解决R2问题
+
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+
+    ext{
+        isRunBuyCar = false  //true表示购物车模块可以单独运行
+        isRunFirstPage = true //true表示首页模块可以单独运行
+        isRunMy = true  //true表示"我的"模块可以单独运行
+
+        compileSdkVersion = 28
+        minSdkVersion = 26
+        targetSdkVersion = 28
+        versionCode = 1
+        versionName = "1.0"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

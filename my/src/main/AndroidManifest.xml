@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.mvp.gch.my"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:theme="@style/AppTheme">
+        <activity android:name=".My_MyActivity">
+        </activity>
+    </application>
+
+</manifest>
